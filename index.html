@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS 공학용 계산기</title>
+<link rel="stylesheet" href="calc.css">
+</head>
+<body>
+<div class="calc">
+  <div class="display">
+    <div class="top">
+      <span>X=<b class="xv"></b> Y=<b class="yv"></b></span>
+      <span class="op-label"></span>
+    </div>
+    <div class="result"><span class="sign"></span><span class="int"></span><span class="dot">.</span><span class="f1"></span><span class="f2"></span><span class="f3"></span></div>
+  </div>
+  <form>
+    <!-- X 0-999 -->
+    <div class="sec"><span>X</span>
+      <div class="digits" data-group="x0">
+        <input data-x0="0" type="radio" name="x0" id="x0-0" checked><label for="x0-0">0</label>
+        <input data-x0="1" type="radio" name="x0" id="x0-1"><label for="x0-1">1</label>
+        <input data-x0="2" type="radio" name="x0" id="x0-2"><label for="x0-2">2</label>
+        <input data-x0="3" type="radio" name="x0" id="x0-3"><label for="x0-3">3</label>
+        <input data-x0="4" type="radio" name="x0" id="x0-4"><label for="x0-4">4</label>
+        <input data-x0="5" type="radio" name="x0" id="x0-5"><label for="x0-5">5</label>
+        <input data-x0="6" type="radio" name="x0" id="x0-6"><label for="x0-6">6</label>
+        <input data-x0="7" type="radio" name="x0" id="x0-7"><label for="x0-7">7</label>
+        <input data-x0="8" type="radio" name="x0" id="x0-8"><label for="x0-8">8</label>
+        <input data-x0="9" type="radio" name="x0" id="x0-9"><label for="x0-9">9</label>
+      </div>
+      <div class="digits" data-group="x1">
+        <input data-x1="0" type="radio" name="x1" id="x1-0" checked><label for="x1-0">0</label>
+        <input data-x1="1" type="radio" name="x1" id="x1-1"><label for="x1-1">1</label>
+        <input data-x1="2" type="radio" name="x1" id="x1-2"><label for="x1-2">2</label>
+        <input data-x1="3" type="radio" name="x1" id="x1-3"><label for="x1-3">3</label>
+        <input data-x1="4" type="radio" name="x1" id="x1-4"><label for="x1-4">4</label>
+        <input data-x1="5" type="radio" name="x1" id="x1-5"><label for="x1-5">5</label>
+        <input data-x1="6" type="radio" name="x1" id="x1-6"><label for="x1-6">6</label>
+        <input data-x1="7" type="radio" name="x1" id="x1-7"><label for="x1-7">7</label>
+        <input data-x1="8" type="radio" name="x1" id="x1-8"><label for="x1-8">8</label>
+        <input data-x1="9" type="radio" name="x1" id="x1-9"><label for="x1-9">9</label>
+      </div>
+      <div class="digits" data-group="x2">
+        <input data-x2="0" type="radio" name="x2" id="x2-0" checked><label for="x2-0">0</label>
+        <input data-x2="1" type="radio" name="x2" id="x2-1"><label for="x2-1">1</label>
+        <input data-x2="2" type="radio" name="x2" id="x2-2"><label for="x2-2">2</label>
+        <input data-x2="3" type="radio" name="x2" id="x2-3"><label for="x2-3">3</label>
+        <input data-x2="4" type="radio" name="x2" id="x2-4"><label for="x2-4">4</label>
+        <input data-x2="5" type="radio" name="x2" id="x2-5"><label for="x2-5">5</label>
+        <input data-x2="6" type="radio" name="x2" id="x2-6"><label for="x2-6">6</label>
+        <input data-x2="7" type="radio" name="x2" id="x2-7"><label for="x2-7">7</label>
+        <input data-x2="8" type="radio" name="x2" id="x2-8"><label for="x2-8">8</label>
+        <input data-x2="9" type="radio" name="x2" id="x2-9"><label for="x2-9">9</label>
+      </div>
+    </div>
+    <!-- Y 0-99 -->
+    <div class="sec"><span>Y</span>
+      <div class="digits" data-group="y0">
+        <input data-y0="0" type="radio" name="y0" id="y0-0" checked><label for="y0-0">0</label>
+        <input data-y0="1" type="radio" name="y0" id="y0-1"><label for="y0-1">1</label>
+        <input data-y0="2" type="radio" name="y0" id="y0-2"><label for="y0-2">2</label>
+        <input data-y0="3" type="radio" name="y0" id="y0-3"><label for="y0-3">3</label>
+        <input data-y0="4" type="radio" name="y0" id="y0-4"><label for="y0-4">4</label>
+        <input data-y0="5" type="radio" name="y0" id="y0-5"><label for="y0-5">5</label>
+        <input data-y0="6" type="radio" name="y0" id="y0-6"><label for="y0-6">6</label>
+        <input data-y0="7" type="radio" name="y0" id="y0-7"><label for="y0-7">7</label>
+        <input data-y0="8" type="radio" name="y0" id="y0-8"><label for="y0-8">8</label>
+        <input data-y0="9" type="radio" name="y0" id="y0-9"><label for="y0-9">9</label>
+      </div>
+      <div class="digits" data-group="y1">
+        <input data-y1="0" type="radio" name="y1" id="y1-0" checked><label for="y1-0">0</label>
+        <input data-y1="1" type="radio" name="y1" id="y1-1"><label for="y1-1">1</label>
+        <input data-y1="2" type="radio" name="y1" id="y1-2"><label for="y1-2">2</label>
+        <input data-y1="3" type="radio" name="y1" id="y1-3"><label for="y1-3">3</label>
+        <input data-y1="4" type="radio" name="y1" id="y1-4"><label for="y1-4">4</label>
+        <input data-y1="5" type="radio" name="y1" id="y1-5"><label for="y1-5">5</label>
+        <input data-y1="6" type="radio" name="y1" id="y1-6"><label for="y1-6">6</label>
+        <input data-y1="7" type="radio" name="y1" id="y1-7"><label for="y1-7">7</label>
+        <input data-y1="8" type="radio" name="y1" id="y1-8"><label for="y1-8">8</label>
+        <input data-y1="9" type="radio" name="y1" id="y1-9"><label for="y1-9">9</label>
+      </div>
+    </div>
+    <div class="ops">
+      <input data-op="+" type="radio" name="op" id="o1"><label for="o1">+</label>
+      <input data-op="-" type="radio" name="op" id="o2"><label for="o2">-</label>
+      <input data-op="*" type="radio" name="op" id="o3"><label for="o3">×</label>
+      <input data-op="/" type="radio" name="op" id="o4"><label for="o4">÷</label>
+      <input data-op="sin" type="radio" name="op" id="o5" checked><label for="o5">sin</label>
+      <input data-op="cos" type="radio" name="op" id="o6"><label for="o6">cos</label>
+      <input data-op="tan" type="radio" name="op" id="o7"><label for="o7">tan</label>
+      <input data-op="asin" type="radio" name="op" id="o8"><label for="o8">sin⁻¹</label>
+      <input data-op="acos" type="radio" name="op" id="o9"><label for="o9">cos⁻¹</label>
+      <input data-op="atan" type="radio" name="op" id="o10"><label for="o10">tan⁻¹</label>
+      <input data-op="sqrt" type="radio" name="op" id="o11"><label for="o11">√X</label>
+      <input data-op="log" type="radio" name="op" id="o12"><label for="o12">log</label>
+      <input data-op="ln" type="radio" name="op" id="o13"><label for="o13">ln</label>
+      <input data-op="sq" type="radio" name="op" id="o14"><label for="o14">x²</label>
+      <input data-op="pow" type="radio" name="op" id="o15"><label for="o15">xʸ</label>
+      <input data-mode="rad" type="checkbox" id="rad"><label for="rad" class="mode">RAD</label>
+      <input type="reset" value="AC" id="ac"><label for="ac" class="reset-label" style="display:none"></label>
+      <input data-t="=" type="radio" name="t" id="eq"><label for="eq" class="eq">=</label>
+    </div>
+  </form>
+  <div class="note">CSS-only · Chrome 125+ / Edge 125+ · sin() cos() need application</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#07070b;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace}
+.calc{
+  width:380px; background:#15151f; border-radius:28px; padding:18px;
+  border:1px solid #232336; box-shadow:0 30px 80px rgba(0,0,0,.6);
+  --x0:0;--x1:0;--x2:0;--y0:0;--y1:0;--X:0;--Y:0;--au:1deg;--R:0;
+  --R_abs:0;--R_int:0;--R_frac:0;--R_f1:0;--R_f2:0;--R_f3:0;--R_sign:0;--R_neg:0;
+  overflow:hidden;
+}
+.display{background:#0e0e17;border-radius:18px;padding:14px 16px;border:1px solid #1e1e2e;margin-bottom:12px}
+.top{display:flex;justify-content:space-between;font-size:11px;color:#6b6b84;margin-bottom:6px}
+.xv::before{content:counter(xc)} .xv{counter-reset:xc var(--X)}
+.yv::before{content:counter(yc)} .yv{counter-reset:yc var(--Y)}
+.op-label::before{content:var(--op-name,"sin")}
+.result{display:flex;align-items:baseline;gap:2px;font-size:42px;font-weight:700;color:#fff;letter-spacing:-1px;min-height:48px}
+.result .sign::before{content:"-"} .result .sign{opacity:0}
+.result .int::before{content:counter(i)} .result .int{counter-reset:i var(--R_int)}
+.result .dot{opacity:.5;font-size:22px}
+.result .f1::before{content:counter(f1)} .result .f1{counter-reset:f1 var(--R_f1)}
+.result .f2::before{content:counter(f2)} .result .f2{counter-reset:f2 var(--R_f2)}
+.result .f3::before{content:counter(f3)} .result .f3{counter-reset:f3 var(--R_f3)}
+.result .f1,.result .f2,.result .f3{font-size:28px;opacity:.85}
+
+.sec{display:flex;align-items:center;gap:8px;background:#1a1a26;border-radius:12px;padding:8px 10px;margin-bottom:8px;overflow:hidden}
+.sec span{font-size:12px;color:#8a8aa3;width:14px}
+.digits{display:flex;gap:3px;flex-wrap:wrap;max-width:100%}
+.digits input[type=radio]{display:none}
+.digits label{width:26px;height:26px;background:#24243a;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;transition:.15s;color:#b8b8d0;user-select:none}
+.digits label:hover{background:#2e2e4a}
+.digits input[type=radio]:checked+label{background:#fff;color:#000;font-weight:800}
+
+.ops{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.ops input[type=radio], .ops input[type=checkbox]{display:none}
+.ops label{background:#1f1f30;border:1px solid #2a2a40;border-radius:10px;padding:10px 0;text-align:center;font-size:12px;cursor:pointer;transition:.15s;color:#c9c9e0}
+.ops label:hover{background:#27273f}
+.ops input:checked+label{background:#fff;color:#000;font-weight:800;box-shadow:0 4px 14px rgba(255,255,255,.15)}
+.ops label.mode{grid-column:span 1;background:#1e1e30}
+.ops input#rad:checked+label.mode{background:#7c4dff;color:#fff}
+.ops input[type=reset]{all:unset;grid-column:span 1;background:#2a1a1f;border:1px solid #3d2530;border-radius:10px;padding:10px 0;text-align:center;font-size:12px;cursor:pointer;color:#ff8fab}
+.ops input[type=reset]:hover{background:#3a2230}
+.ops label.eq{grid-column:span 2;background:linear-gradient(135deg,#00e5ff,#7b2cbf);color:#fff;font-weight:800;font-size:16px;box-shadow:0 8px 18px rgba(123,44,191,.3);border-color:transparent}
+.note{margin-top:10px;font-size:10px;color:#3a3a52;text-align:center}
+
+/* X Y 계산 */
+.calc{
+  --X:calc(var(--x0)*100 + var(--x1)*10 + var(--x2));
+  --Y:calc(var(--y0)*10 + var(--y1));
+}
+
+.calc:has([data-x0="0"]:checked){--x0:0}
+.calc:has([data-x0="1"]:checked){--x0:1}
+.calc:has([data-x0="2"]:checked){--x0:2}
+.calc:has([data-x0="3"]:checked){--x0:3}
+.calc:has([data-x0="4"]:checked){--x0:4}
+.calc:has([data-x0="5"]:checked){--x0:5}
+.calc:has([data-x0="6"]:checked){--x0:6}
+.calc:has([data-x0="7"]:checked){--x0:7}
+.calc:has([data-x0="8"]:checked){--x0:8}
+.calc:has([data-x0="9"]:checked){--x0:9}
+.calc:has([data-x1="0"]:checked){--x1:0}
+.calc:has([data-x1="1"]:checked){--x1:1}
+.calc:has([data-x1="2"]:checked){--x1:2}
+.calc:has([data-x1="3"]:checked){--x1:3}
+.calc:has([data-x1="4"]:checked){--x1:4}
+.calc:has([data-x1="5"]:checked){--x1:5}
+.calc:has([data-x1="6"]:checked){--x1:6}
+.calc:has([data-x1="7"]:checked){--x1:7}
+.calc:has([data-x1="8"]:checked){--x1:8}
+.calc:has([data-x1="9"]:checked){--x1:9}
+.calc:has([data-x2="0"]:checked){--x2:0}
+.calc:has([data-x2="1"]:checked){--x2:1}
+.calc:has([data-x2="2"]:checked){--x2:2}
+.calc:has([data-x2="3"]:checked){--x2:3}
+.calc:has([data-x2="4"]:checked){--x2:4}
+.calc:has([data-x2="5"]:checked){--x2:5}
+.calc:has([data-x2="6"]:checked){--x2:6}
+.calc:has([data-x2="7"]:checked){--x2:7}
+.calc:has([data-x2="8"]:checked){--x2:8}
+.calc:has([data-x2="9"]:checked){--x2:9}
+.calc:has([data-y0="0"]:checked){--y0:0}
+.calc:has([data-y0="1"]:checked){--y0:1}
+.calc:has([data-y0="2"]:checked){--y0:2}
+.calc:has([data-y0="3"]:checked){--y0:3}
+.calc:has([data-y0="4"]:checked){--y0:4}
+.calc:has([data-y0="5"]:checked){--y0:5}
+.calc:has([data-y0="6"]:checked){--y0:6}
+.calc:has([data-y0="7"]:checked){--y0:7}
+.calc:has([data-y0="8"]:checked){--y0:8}
+.calc:has([data-y0="9"]:checked){--y0:9}
+.calc:has([data-y1="0"]:checked){--y1:0}
+.calc:has([data-y1="1"]:checked){--y1:1}
+.calc:has([data-y1="2"]:checked){--y1:2}
+.calc:has([data-y1="3"]:checked){--y1:3}
+.calc:has([data-y1="4"]:checked){--y1:4}
+.calc:has([data-y1="5"]:checked){--y1:5}
+.calc:has([data-y1="6"]:checked){--y1:6}
+.calc:has([data-y1="7"]:checked){--y1:7}
+.calc:has([data-y1="8"]:checked){--y1:8}
+.calc:has([data-y1="9"]:checked){--y1:9}
+.calc:has([data-op="+"]:checked){--R:calc(var(--X) + var(--Y));--op-name:"+"}
+.calc:has([data-op="-"]:checked){--R:calc(var(--X) - var(--Y));--op-name:"-"}
+.calc:has([data-op="*"]:checked){--R:calc(var(--X) * var(--Y));--op-name:"×"}
+.calc:has([data-op="/"]:checked){--R:calc(var(--X) / var(--Y));--op-name:"÷"}
+.calc:has([data-op="sin"]:checked){--R:calc(sin(var(--X) * var(--au)));--op-name:"sin"}
+.calc:has([data-op="cos"]:checked){--R:calc(cos(var(--X) * var(--au)));--op-name:"cos"}
+.calc:has([data-op="tan"]:checked){--R:calc(tan(var(--X) * var(--au)));--op-name:"tan"}
+.calc:has([data-op="asin"]:checked){--R:calc(asin(var(--X)) / var(--au));--op-name:"sin⁻¹"}
+.calc:has([data-op="acos"]:checked){--R:calc(acos(var(--X)) / var(--au));--op-name:"cos⁻¹"}
+.calc:has([data-op="atan"]:checked){--R:calc(atan(var(--X)) / var(--au));--op-name:"tan⁻¹"}
+.calc:has([data-op="sqrt"]:checked){--R:calc(sqrt(var(--X)));--op-name:"√"}
+.calc:has([data-op="log"]:checked){--R:calc(log(var(--X), 10));--op-name:"log"}
+.calc:has([data-op="ln"]:checked){--R:calc(log(var(--X)));--op-name:"ln"}
+.calc:has([data-op="sq"]:checked){--R:calc(pow(var(--X), 2));--op-name:"x²"}
+.calc:has([data-op="pow"]:checked){--R:calc(pow(var(--X), var(--Y)));--op-name:"xʸ"}
+.calc:has([data-mode="rad"]:checked){--au:1rad}
+
+.calc{
+  --R_abs:calc(abs(var(--R)));
+  --R_int:calc(round(down,var(--R_abs)));
+  --R_frac:calc(round(down,calc((var(--R_abs) - var(--R_int))*1000)));
+  --R_f1:calc(round(down,calc(var(--R_frac)/100)));
+  --R_f2:calc(round(down,calc(mod(var(--R_frac),100)/10)));
+  --R_f3:calc(mod(var(--R_frac),10));
+  --R_sign:calc(sign(var(--R)));
+  --R_neg:calc(max(0,calc(-1*var(--R_sign))));
+}
+.result .sign{opacity:var(--R_neg)}
